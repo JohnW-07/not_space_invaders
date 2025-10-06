@@ -10,11 +10,11 @@ NOTE: This class is the metaphorical "main method" of your program,
 import java.awt.*;
 import java.awt.event.*;
 
-class YourGameName extends Game {
+class notSpaceInvaders extends Game {
 	static int counter = 0;
 
-  public YourGameName() {
-    super("YourGameName!",800,600);
+  public notSpaceInvaders() {
+    super("notSpaceInvaders!",1000,1000);
     this.setFocusable(true);
 	this.requestFocus();
   }
@@ -32,7 +32,11 @@ class YourGameName extends Game {
   }
   
 	public static void main (String[] args) {
-   		YourGameName a = new YourGameName();
+   		notSpaceInvaders a = new notSpaceInvaders();
+		Ship p1 = new Ship(0,0);
+		//Polygon.fillPolygon(p1);
+		.fillPolygon(p1);
 		a.repaint();
+
   }
 }
