@@ -36,6 +36,7 @@ class notSpaceInvaders extends Game {
     	p1.paint(brush);
     	p1.move();
     	
+    	//Map wrap-around logic
     	if(p1.position.getX() > 1000) { p1.position.setX(0); }
     	if(p1.position.getX() < 0) { p1.position.setX(1000); }
     	if(p1.position.getY() > 1000) { p1.position.setY(0); }
