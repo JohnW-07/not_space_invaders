@@ -12,6 +12,8 @@ import java.awt.event.*;
 
 class notSpaceInvaders extends Game {
 	static int counter = 0;
+	public Graphics shipBrush = new 
+	
 
   public notSpaceInvaders() {
     super("notSpaceInvaders!",1000,1000);
@@ -31,11 +33,13 @@ class notSpaceInvaders extends Game {
     	brush.drawString("Counter is " + counter,10,10);
   }
   
+	
 	public static void main (String[] args) {
    		notSpaceInvaders a = new notSpaceInvaders();
-		Ship p1 = new Ship(0,0);
+		Ship p1 = new Ship(0,0,"Blue");
 		//Polygon.fillPolygon(p1);
-		.fillPolygon(p1);
+		//.fillPolygon(p1);
+		p1.paint();
 		a.repaint();
 
   }
