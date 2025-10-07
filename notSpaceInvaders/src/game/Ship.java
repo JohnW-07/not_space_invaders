@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class Ship extends Polygon implements KeyListener {
 	private boolean left = false;
 	private double xVel = 0.0;
 	private double yVel = 0.0;
-	private static double maxSpd = 10.0;
+	private static double maxSpd = 15.0;
 	private static double accel = 1;
 	private static double decel = 0.2;
 	private static int rotSpd = 5;
@@ -38,11 +39,22 @@ public class Ship extends Polygon implements KeyListener {
 
 		for (Laser foundLaser : lasers) {
 			if (foundLaser != null) {
-				g.setColor(g.getColor().darker());
+				
+				
+				g.setColor(foundLaser.color.darker());
+				foundLaser.color = foundLaser.color.darker();
+				foundLaser.cooldown = 10;
 				g.drawLine(foundLaser.x1, foundLaser.y1, foundLaser.x2, foundLaser.y2);
+				
+				if (foundLaser.color.getRGB() == -16777216) { 
+					foundLaser = null;
+					
+				}
+			
 			}
-
+			//System.out.println(foundLaser);
 		}
+		//System.out.println();
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -98,6 +110,7 @@ public class Ship extends Polygon implements KeyListener {
 		this.position.setY(this.position.getY() + yVel);
 
 		// laser logic
+		/*
 		for (Laser foundLaser : lasers) {
 			if (foundLaser != null) {
 				if (foundLaser.opacity == 0) {
@@ -106,13 +119,14 @@ public class Ship extends Polygon implements KeyListener {
 					foundLaser.opacity--;
 				}
 			}
-		}
+		} 
+		*/
 
 	}
 
 	private class Laser {
 		private int dmg = 0;
-		private int opacity;
+		private Color color = Color.WHITE;
 		private int cooldown = 10;
 		private int x1, x2, y1, y2;
 
@@ -120,12 +134,11 @@ public class Ship extends Polygon implements KeyListener {
 				new Point(-1500, -4) };
 
 		public Laser(Ship ship) {
-			x1 = (int) ship.position.getX();
-			y1 = (int) ship.position.getY();
-			x2 = (int) (ship.position.getX() + (1000 * Math.cos(ship.rotation * (Math.PI / 180))));
+			x1 = (int) (ship.position.getX() + 12.5);
+			y1 = (int) (ship.position.getY() + 12.5);
+			x2 = (int) (ship.position.getX() + (2000 * Math.cos(ship.rotation * (Math.PI / 180))));
 			y2 = (int) (ship.position.getY() + (1000 * Math.sin(ship.rotation * (Math.PI / 180))));
 
-			opacity = 100;
 		}
 
 	}

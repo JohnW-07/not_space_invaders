@@ -18,7 +18,7 @@ class notSpaceInvaders extends Game {
 
 
   public notSpaceInvaders() {
-    super("notSpaceInvaders!",1000,1000);
+    super("notSpaceInvaders!",1450,850);
     this.setFocusable(true);
 	this.requestFocus();
   }
@@ -37,10 +37,10 @@ class notSpaceInvaders extends Game {
     	p1.move();
     	
     	//Map wrap-around logic
-    	if(p1.position.getX() > 1000) { p1.position.setX(0); }
-    	if(p1.position.getX() < 0) { p1.position.setX(1000); }
-    	if(p1.position.getY() > 1000) { p1.position.setY(0); }
-    	if(p1.position.getY() < 0) { p1.position.setY(1000); }
+    	if(p1.position.getX() > 1450) { p1.position.setX(0); }
+    	if(p1.position.getX() < 0) { p1.position.setX(1450); }
+    	if(p1.position.getY() > 850) { p1.position.setY(0); }
+    	if(p1.position.getY() < 0) { p1.position.setY(850); }
 
   }
   
