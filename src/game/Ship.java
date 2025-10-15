@@ -42,8 +42,15 @@ public class Ship extends Polygon implements KeyListener {
 				
 				
 				g.setColor(foundLaser.color.darker());
-				foundLaser.color = foundLaser.color.darker();
-				foundLaser.cooldown = 10;
+				
+				//foundLaser.cooldown = foundLaser.cooldown == 10
+				
+				if(foundLaser.cooldown == 0) {
+					foundLaser.color = foundLaser.color.darker();
+					foundLaser.cooldown = 1;
+				} else {
+					foundLaser.cooldown--;
+				}
 				g.drawLine(foundLaser.x1, foundLaser.y1, foundLaser.x2, foundLaser.y2);
 				if (foundLaser.color.getRGB() == -16777216) { 
 					foundLaser = null;
@@ -73,6 +80,15 @@ public class Ship extends Polygon implements KeyListener {
 
 	}
 
+	public double getXVel() {
+		return xVel;
+	}
+	
+	public double getYVel() {
+		return yVel;
+	}
+	
+	
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == 87) {
 			forward = false;
@@ -137,7 +153,7 @@ public class Ship extends Polygon implements KeyListener {
 	private class Laser {
 		private int dmg = 0;
 		private Color color = Color.WHITE;
-		private int cooldown = 10;
+		private int cooldown = 3;
 		private int x1, x2, y1, y2;
 
 		private static Point[] laserShape = { new Point(-1500, 4), new Point(1500, 4), new Point(1500, -4),
