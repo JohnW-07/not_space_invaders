@@ -2,7 +2,7 @@ package game;
 
 import java.awt.Graphics;
 
-public class Stars extends Polygon {
+public class Stars extends Polygon{
 	private static Point[] starShape = { 
 			/*
 			 * Star shape too resource demanding
@@ -32,8 +32,8 @@ public class Stars extends Polygon {
 
 	{ // randomly generated size per star
 		for (int i = 0; i < starShape.length; i++) {
-			indShape[i] = new Point(starShape[i].getX() * Math.random(), 
-					starShape[i].getY() * Math.random());
+			indShape[i] = new Point(starShape[i].getX() * Math.random() * 3, 
+					starShape[i].getY() * Math.random() * 3);
 
 		}
 	}	
@@ -42,30 +42,23 @@ public class Stars extends Polygon {
 		super(starShape, new Point(x, y), 0);
 		this.color = color;
 	}
-
-	/*
-	interface randMove{
-		Stars randMove();
-	}{
-	
-	(Stars s) -> { star.position.setX(10) ;}
-	
-	
-	= (s.position.getX(), s.position.getY()) -> {
-		s.position.setX(s.position.getX() + (Math.random() * 0.1), 
-				s.position.setY(s.position.getY() + (Math.random() * 5));
-		}
-	*/
-
-	
-	
-	
-	
-	
 	
 	public void paint(Graphics g, double xVel, double yVel) {
-		position.setX(position.getX() - (xVel * 0.1));
-		position.setY(position.getY() - (yVel * 0.1));
+		
+		/* offsetCalc starOffset =  */
+		//(position.getX(), xVel) -> position.setX(position.getX() - (xVel * 0.1));
+		
+		//position.setX(position.getX() - (xVel * 0.1));
+		//position.setY(position.getY() - (yVel * 0.1));
+
+		offsetCalc offsetX = vel -> position.setX(position.getX() - (vel * 0.1));
+		offsetCalc offsetY = vel -> position.setY(position.getY() - (vel * 0.1));
+
+		offsetX.starOffset(xVel);
+		offsetY.starOffset(yVel);
+
+		
+		
 		int[] x = new int[indShape.length];
 		int[] y = new int[indShape.length];
 
