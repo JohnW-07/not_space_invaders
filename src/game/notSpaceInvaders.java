@@ -13,6 +13,8 @@ import java.awt.event.*;
 class notSpaceInvaders extends Game {
 	static int counter = 0;
 	static Ship p1 = new Ship(500,500,"Blue");
+	static Stars[] starList = new Stars[100];
+	static boolean starsDrawn = true;
 	//Polygon.fillPolygon(p1);
 	//.fillPolygon(p1);
 
@@ -21,11 +23,16 @@ class notSpaceInvaders extends Game {
     super("notSpaceInvaders!",1450,850);
     this.setFocusable(true);
 	this.requestFocus();
+	for(int i = 0; i < starList.length; i ++) {
+		starList[i] = new Stars((int)(1450 * Math.random()),(int)(850 * Math.random()), "WHITE");
+	}
   }
   
 	public void paint(Graphics brush) {
     	brush.setColor(Color.black);
     	brush.fillRect(0,0,width,height);
+    	
+    	
     	
     	// sample code for printing message for debugging
     	// counter is incremented and this message printed
@@ -36,11 +43,20 @@ class notSpaceInvaders extends Game {
     	p1.paint(brush);
     	p1.move();
     	
+    	if (!starsDrawn) { 
+    		for (int i = 0; i < starList.length; i++) {
+    			starList[i].paint(brush);
+    		}
+    		starsDrawn = false;
+    	}
+    	
     	//Map wrap-around logic
     	if(p1.position.getX() > 1450) { p1.position.setX(0); }
     	if(p1.position.getX() < 0) { p1.position.setX(1450); }
     	if(p1.position.getY() > 850) { p1.position.setY(0); }
     	if(p1.position.getY() < 0) { p1.position.setY(850); }
+    	
+    	
 
   }
   

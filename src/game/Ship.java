@@ -14,7 +14,7 @@ public class Ship extends Polygon implements KeyListener {
 	private boolean left = false;
 	private double xVel = 0.0;
 	private double yVel = 0.0;
-	private static double maxSpd = 15.0;
+	private static double maxSpd = 25.0;
 	private static double accel = 1;
 	private static double decel = 0.2;
 	private static int rotSpd = 5;
@@ -45,7 +45,6 @@ public class Ship extends Polygon implements KeyListener {
 				foundLaser.color = foundLaser.color.darker();
 				foundLaser.cooldown = 10;
 				g.drawLine(foundLaser.x1, foundLaser.y1, foundLaser.x2, foundLaser.y2);
-				
 				if (foundLaser.color.getRGB() == -16777216) { 
 					foundLaser = null;
 					
@@ -123,7 +122,18 @@ public class Ship extends Polygon implements KeyListener {
 		*/
 
 	}
-
+	
+	
+	//get laser direction and start pos for collision check -> might need to be 
+	//replaced with col
+	public Double[] getLaserDir() {
+		Double[] ret = new Double [3];
+		ret[0] = this.position.getX();
+		ret[1] = this.position.getY();
+		ret[2] = this.rotation;
+		return ret;
+	}
+	
 	private class Laser {
 		private int dmg = 0;
 		private Color color = Color.WHITE;
