@@ -29,8 +29,8 @@ public class Stars extends Polygon{
 			new Point(1.5,0),
 
 	};
+	//individual randomized shape for each star
 	private Point[] indShape = new Point[starShape.length];
-	private String color;
 
 	{ // randomly generated size per star
 		for (int i = 0; i < starShape.length; i++) {
@@ -40,9 +40,8 @@ public class Stars extends Polygon{
 		}
 	}	
 	
-	public Stars(int x, int y, String color) {
+	public Stars(int x, int y) {
 		super(starShape, new Point(x, y), 0);
-		this.color = color;
 	}
 	
 	public void paint(Graphics g, double xVel, double yVel) {

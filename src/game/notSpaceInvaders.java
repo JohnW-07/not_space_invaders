@@ -25,7 +25,7 @@ public class notSpaceInvaders extends Game {
 		this.setFocusable(true);
 		this.requestFocus();
 		for (int i = 0; i < starList.length - 25; i++) {
-			starList[i] = new Stars((int) (1450 * Math.random()), (int) (850 * Math.random()), "WHITE");
+			starList[i] = new Stars((int) (1450 * Math.random()), (int) (850 * Math.random()));
 		}
 
 		for (int i = 0; i < asteroids.length; i++) {
@@ -36,7 +36,6 @@ public class notSpaceInvaders extends Game {
 
 	public void paint(Graphics brush) {
 		if (counter == 0 && cooldown > 0) { cooldown --; }
-		System.out.println(cooldown);
 		if (cooldown != 0) {
 			brush.setColor(Color.black);
 			brush.fillRect(0, 0, width, height);
