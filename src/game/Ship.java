@@ -6,21 +6,34 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class Ship extends Polygon implements KeyListener {
+	/* health variable, not currently used */
 	private int health = 100;
-
+	
+	/*direction vars for keeping track of pressed buttons*/
 	private boolean forward = false;
 	private boolean right = false;
 	private boolean left = false;
 
+	/*keeps track of current ship velocities, independent of currently pressed buttons*/
 	private double xVel = 0.0;
 	private double yVel = 0.0;
 
+	/*ship maximum velocity, acceleration, rotation, and deceleration limits
+	 * static in order to keep fairness, should be same for all players 
+	 * (currently only one player, left not hard coded in case more are to be added)
+	 * */
 	private static double maxSpd = 25.0; // default 25
 	private static double accel = 1;
 	private static double decel = 0.2;
 	private static int rotSpd = 5;
+	
+	/*ship shape points, kept low to reduce computation load*/
 	private static Point[] shipShape = { new Point(0, 0), new Point(-12.5, 15), new Point(25, 0),
 			new Point(-12.5, -15) };
+	
+	/* lasers are tracked on a per-ship basis, contains every laser fired by the ship
+	 * lasers are cleared when they fade away
+	 * */
 	private ArrayList<Laser> lasers = new ArrayList<>();
 
 	/**
