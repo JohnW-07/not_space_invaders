@@ -11,11 +11,11 @@ public class Ship extends Polygon implements KeyListener {
 	private boolean forward = false;
 	private boolean right = false;
 	private boolean left = false;
-	
+
 	private double xVel = 0.0;
 	private double yVel = 0.0;
-	
-	private static double maxSpd = 25.0; //default 25
+
+	private static double maxSpd = 25.0; // default 25
 	private static double accel = 1;
 	private static double decel = 0.2;
 	private static int rotSpd = 5;
@@ -39,28 +39,27 @@ public class Ship extends Polygon implements KeyListener {
 
 		for (Laser foundLaser : lasers) {
 			if (foundLaser != null) {
-				
-				
+
 				g.setColor(foundLaser.color.darker());
-				
-				//foundLaser.cooldown = foundLaser.cooldown == 10
-				
-				if(foundLaser.cooldown == 0) {
+
+				// foundLaser.cooldown = foundLaser.cooldown == 10
+
+				if (foundLaser.cooldown == 0) {
 					foundLaser.color = foundLaser.color.darker();
 					foundLaser.cooldown = 1;
 				} else {
 					foundLaser.cooldown--;
 				}
 				g.drawLine(foundLaser.x1, foundLaser.y1, foundLaser.x2, foundLaser.y2);
-				if (foundLaser.color.getRGB() == -16777216) { 
+				if (foundLaser.color.getRGB() == -16777216) {
 					foundLaser = null;
-					
+
 				}
-			
+
 			}
-			//System.out.println(foundLaser);
+			// System.out.println(foundLaser);
 		}
-		//System.out.println();
+		// System.out.println();
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -83,12 +82,11 @@ public class Ship extends Polygon implements KeyListener {
 	public double getXVel() {
 		return xVel;
 	}
-	
+
 	public double getYVel() {
 		return yVel;
 	}
-	
-	
+
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == 87) {
 			forward = false;
@@ -99,6 +97,49 @@ public class Ship extends Polygon implements KeyListener {
 		if (e.getKeyCode() == 68) {
 			right = false;
 		}
+	}
+
+	public boolean checkCollision(double x, double y, int rad) {
+		for (Laser foundLaser : lasers) {
+			if (foundLaser != null && foundLaser.color == Color.WHITE) {
+
+				double a = -foundLaser.y1 + foundLaser.y2;
+				double b = foundLaser.x1 - foundLaser.x2;
+				double c = (foundLaser.x1 * -foundLaser.y2) - (foundLaser.x2 * -foundLaser.y1);
+
+				double dist = (Math.abs(a * x + b * y + c)) / Math.sqrt(a * a + b * b);
+				
+				if (rad == dist || rad > dist) {
+					if((rotation >= 0 && rotation < 90) || (rotation <= -270 && rotation > -360)) {
+						if(x > foundLaser.x1 && y > foundLaser.y1) {
+							return true;
+
+						}
+					}
+					if((rotation >= 90 && rotation < 180) || (rotation <= -180 && rotation > -270)) {
+						if(x < foundLaser.x1 && y > foundLaser.y1) {
+							return true;
+
+						}
+					}
+					if((rotation >= 180 && rotation < 270) || (rotation <= -90 && rotation > -180)) {
+						if(x < foundLaser.x1 && y < foundLaser.y1) {
+							return true;
+
+						}
+					}
+					if((rotation >= 270 && rotation < 360) || (rotation <= 0 && rotation > -90)) {
+						if(x > foundLaser.x1 && y < foundLaser.y1) {
+							return true;
+
+						}
+					}
+					
+					
+				}
+			}
+		}
+		return false;
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -126,36 +167,29 @@ public class Ship extends Polygon implements KeyListener {
 
 		// laser logic
 		/*
-		for (Laser foundLaser : lasers) {
-			if (foundLaser != null) {
-				if (foundLaser.opacity == 0) {
-					foundLaser = null;
-				} else {
-					foundLaser.opacity--;
-				}
-			}
-		} 
-		*/
+		 * for (Laser foundLaser : lasers) { if (foundLaser != null) { if
+		 * (foundLaser.opacity == 0) { foundLaser = null; } else { foundLaser.opacity--;
+		 * } } }
+		 */
 
 	}
-	
-	
-	//get laser direction and start pos for collision check -> might need to be 
-	//replaced with col
+
+	// get laser direction and start pos for collision check -> might need to be
+	// replaced with col
 	public Double[] getLaserDir() {
-		Double[] ret = new Double [3];
+		Double[] ret = new Double[3];
 		ret[0] = this.position.getX();
 		ret[1] = this.position.getY();
 		ret[2] = this.rotation;
 		return ret;
 	}
-	
-	//damages current ship, returns health remaining
+
+	// damages current ship, returns health remaining
 	public int damage(int dmg) {
 		health -= dmg;
 		return health;
 	}
-	
+
 	private class Laser {
 		private int dmg = 0;
 		private Color color = Color.WHITE;

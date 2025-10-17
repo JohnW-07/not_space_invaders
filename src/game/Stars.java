@@ -3,6 +3,8 @@ package game;
 import java.awt.Graphics;
 
 public class Stars extends Polygon{
+	private static double paralaxConst = 0.03;
+	
 	private static Point[] starShape = { 
 			/*
 			 * Star shape too resource demanding
@@ -51,8 +53,8 @@ public class Stars extends Polygon{
 		//position.setX(position.getX() - (xVel * 0.1));
 		//position.setY(position.getY() - (yVel * 0.1));
 
-		offsetCalc offsetX = vel -> position.setX(position.getX() - (vel * 0.1));
-		offsetCalc offsetY = vel -> position.setY(position.getY() - (vel * 0.1));
+		offsetCalc offsetX = vel -> position.setX(position.getX() - (vel * paralaxConst));
+		offsetCalc offsetY = vel -> position.setY(position.getY() - (vel * paralaxConst));
 
 		offsetX.starOffset(xVel);
 		offsetY.starOffset(yVel);
