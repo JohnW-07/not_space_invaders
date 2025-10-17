@@ -17,10 +17,43 @@ public class Asteroid extends Polygon implements RandomGeneration {
 		}
 		brush.fillPolygon(x, y, asteroidShape.length);
 	}
-	public Point generation () {
+	public Point generation () { // RandomGeneration implementation
 		Random rand = new Random ();
 		double randomNumber1 = rand.nextDouble(1000);
 		double randomNumber2 = rand.nextDouble(1000);
 		return new Point (randomNumber1, randomNumber2);
+	}
+	public Point [] asteroidRandomGeneration() {
+		Point [] asteroidShapeRandomGeneration = { generation(), generation(), generation(), generation() };
+		return asteroidShapeRandomGeneration;
+	}
+
+
+	RandomGeneration randomExample = new RandomGeneration() {
+		public Point generation () {
+			Random rand = new Random ();
+			double randomNumber1 = rand.nextDouble(1000);
+			double randomNumber2 = rand.nextDouble(1000);
+			return new Point (randomNumber1, randomNumber2);
+		}
+		public Point [] asteroidRandomGeneration() {
+				Point [] asteroidShapeRandomGeneration = { generation(), generation(), generation(), generation() };
+				return asteroidShapeRandomGeneration;
+			}
+	};
+	
+	
+	private class Counter{
+		int count;
+		int scoreKeeper;
+		int highScoreKeeper;
+		int streak;
+		
+		public Counter(int count,int scoreKeeper, int highScoreKeeper, int streak ) {
+			this.count=count;
+			this.scoreKeeper=scoreKeeper;
+			this.highScoreKeeper=highScoreKeeper;
+			this.streak=streak;
+		}
 	}
 }
