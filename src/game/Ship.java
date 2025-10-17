@@ -23,10 +23,24 @@ public class Ship extends Polygon implements KeyListener {
 			new Point(-12.5, -15) };
 	private ArrayList<Laser> lasers = new ArrayList<>();
 
+	/**
+	* Base constructor, uses Polygon for shape 
+	*
+	* @param  x x starting coordinate
+	* @param  y y starting coordinate
+	*/
 	public Ship(int x, int y) {
 		super(shipShape, new Point(x, y), 0);
 	}
 
+	/**
+	* paints current ship 
+	* <p>
+	* paints every laser: darkens laser, removes from list when laser disappears
+	* 
+	* @param g graphics brush to draw elements with 
+	*/
+	
 	public void paint(Graphics g) {
 		int[] x = new int[shipShape.length];
 		int[] y = new int[shipShape.length];
@@ -62,6 +76,11 @@ public class Ship extends Polygon implements KeyListener {
 		// System.out.println();
 	}
 
+	/**
+	* Checks for keyPressed, primarily for WASD movement
+	*
+	* @param  e input keyEvent
+	*/
 	public void keyPressed(KeyEvent e) {
 		// System.out.println(e.getKeyCode());
 		if (e.getKeyCode() == 87) {
@@ -79,14 +98,29 @@ public class Ship extends Polygon implements KeyListener {
 
 	}
 
+	/**
+	* Returns get ship x velocity (stored in xVel). 
+	*
+	* @return      current ship x velocity
+	*/
 	public double getXVel() {
 		return xVel;
 	}
 
+	/**
+	 * Returns get ship y velocity (stored in yVel).
+	 * 
+	 * @return		current ship y velocity
+	 */
 	public double getYVel() {
 		return yVel;
 	}
 
+	/**
+	* Managing WASD movement
+	*
+	* @param  e input key released
+	*/
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == 87) {
 			forward = false;
@@ -99,6 +133,24 @@ public class Ship extends Polygon implements KeyListener {
 		}
 	}
 
+	/**
+	* Checks each laser for collision, only if laser is not null and is white(only checks
+	* new lasers to reduce compute requirement).
+	* <p>
+	* Effectively gives each asteroid a circular hitbox:
+	* calculates distance orthogonal from line to center of asteroid to determine collision
+	* more efficient than calculating point by point: this method is O(1) per asteroid
+	* <p>
+	* Uses current rotation of ship to separate game field into 4 quadrants, then
+	* uses x and y coordinates to determine if the asteroid being checked is
+	* in front of ship or behind (only returns true if asteroid is hit in front of ship).
+	*
+	* @param  x    current asteroid x position
+	* @param y     current asteroid y position
+	* @param rad   current asteroid radius (NOT EXACT RADIUS OF ASTEROID, extra
+	* 			    radius given to make game easier)
+	* @return      if collision was detected with current asteroid (given x, y coords)
+	*/
 	public boolean checkCollision(double x, double y, int rad) {
 		for (Laser foundLaser : lasers) {
 			if (foundLaser != null && foundLaser.color == Color.WHITE) {
@@ -108,6 +160,12 @@ public class Ship extends Polygon implements KeyListener {
 				double c = (foundLaser.x1 * -foundLaser.y2) - (foundLaser.x2 * -foundLaser.y1);
 
 				double dist = (Math.abs(a * x + b * y + c)) / Math.sqrt(a * a + b * b);
+				
+				/*
+				 * uses current heading, coordinates of ship and asteroids coords 
+				 * to determine if asteroid is infront of ship
+
+				 */
 				
 				if (rad == dist || rad > dist) {
 					if((rotation >= 0 && rotation < 90) || (rotation <= -270 && rotation > -360)) {
@@ -142,9 +200,19 @@ public class Ship extends Polygon implements KeyListener {
 		return false;
 	}
 
+	/**
+	* initialized for implementation, no usage
+	*/
 	public void keyTyped(KeyEvent e) {
-	} // initialized for implementation, no usage
-
+	} 
+	
+	/**
+	* called by paint every tick, moves ship in direction of current heading, 
+	* decreases x and y velocities by deceleration value. \
+	* <p>
+	* uses left and right booleans to rotate ship by rotSpd
+	* <p>
+	*/
 	public void move() {
 
 		if (forward && Math.sqrt(Math.pow(xVel, 2) + Math.pow(yVel, 2)) < maxSpd) {
@@ -176,6 +244,12 @@ public class Ship extends Polygon implements KeyListener {
 
 	// get laser direction and start pos for collision check -> might need to be
 	// replaced with col
+	
+	/**
+	* Helper method to facilitate collision checks, not currently used
+	*
+	* @return      Double array containing laser direction and start position
+	*/
 	public Double[] getLaserDir() {
 		Double[] ret = new Double[3];
 		ret[0] = this.position.getX();
@@ -184,18 +258,33 @@ public class Ship extends Polygon implements KeyListener {
 		return ret;
 	}
 
-	// damages current ship, returns health remaining
+	/**
+	* reduce ship health and return remaining hp, not currently used
+	*
+	* @param  dmg  damage to take from ship health
+	* @return      current ship health after damage
+	*/
 	public int damage(int dmg) {
 		health -= dmg;
 		return health;
 	}
 
+	/**
+	* Laser inner class
+	*/
 	private class Laser {
 		private int dmg = 0;
 		private Color color = Color.WHITE;
 		private int cooldown = 3;
 		private int x1, x2, y1, y2;
 
+		
+		/**
+		* Laser base contructor, draws line from current ship position to offscreen
+		* in the direction that the ship is pointing
+		*
+		* @param  ship  current ship used for position info (where to begin laser line)
+		*/
 		public Laser(Ship ship) {
 			x1 = (int) (ship.position.getX() + 12.5);
 			y1 = (int) (ship.position.getY() + 12.5);
