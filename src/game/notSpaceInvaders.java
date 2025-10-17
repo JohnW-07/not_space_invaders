@@ -33,7 +33,12 @@ public class notSpaceInvaders extends Game {
 		}
 
 	}
-
+	/**
+	 * This method takes care of drawing the ship and the asteroid
+	 * Alongside with that logic, this method also implements the game over logic 
+	 * keeping track of how many asteroids are left in the game. It also uses the checkCollision method to check for collisions
+	 * @param Takes In A Graphics instance
+	 */
 	public void paint(Graphics brush) {
 		if (counter == 0 && cooldown > 0) { cooldown --; }
 		if (cooldown != 0) {
@@ -92,7 +97,9 @@ public class notSpaceInvaders extends Game {
 			checkCollision();
 		}
 	}
-
+/**
+ * This methods checks for the initial collision between the line and the asteroid 
+ */
 	public void checkCollision() {
 		for (int i = 0; i < asteroids.length; i++) {
 			if (asteroids[i].getColor() != Color.BLACK

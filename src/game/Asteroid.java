@@ -13,31 +13,51 @@ public class Asteroid extends Polygon implements RandomGeneration {
 			};
 	
 	private Color color = Color.white;
-
+/**
+ * @param x the x coordinate of the asteroid
+ * @param y the y coordinate of the asteroid
+ */
 	public Asteroid(int x, int y) {
 		super(asteroidShape, new Point(x, y), 0);
 	}
-	
+	/**
+	 * 
+	 * @return the x-cordinate of the asteroid
+	 */
 	public double getX() {
 		return super.position.x;
 	}
-	
+	/**
+	 * 
+	 * @return the y-coordinate of the asteroid
+	 */
 	public double getY() {
 		return super.position.y;
 	}
-	
+	/** 
+	 * Making The Color Black After Deleting The Asteroid
+	 */
 	public void delete() {
 		color = Color.BLACK;
 	}
-	
+	/**
+	 * 
+	 * @return the color of the asteroid
+	 */
 	public Color getColor() {
 		return color;
 	}
-	
+	/**
+	 * 
+	 * @param newCol to change the color of the asteroid
+	 */
 	public void setColor(Color newCol) {
 		color = newCol;
 	}
-	
+	/**
+	 * Draws a singular asteroid
+	 * @param brush pass in the appropriate Graphics instancc
+	 */
 	public void paint(Graphics brush) {
 		int[] x = new int[asteroidShape.length];
 		int[] y = new int[asteroidShape.length];
@@ -48,14 +68,18 @@ public class Asteroid extends Polygon implements RandomGeneration {
 		}
 		brush.fillPolygon(x, y, asteroidShape.length);
 	}
-
+	/**
+	 * @return A singular Point Randomly Generated
+	 */
 	public Point generation() { // RandomGeneration implementation
 		Random rand = new Random();
 		double randomNumber1 = rand.nextDouble(1000);
 		double randomNumber2 = rand.nextDouble(1000);
 		return new Point(randomNumber1, randomNumber2);
 	}
-
+	/**
+	 * @return An array of Points randomly generated using another distinct method
+	 */
 	public Point[] asteroidRandomGeneration() {
 		Point[] asteroidShapeRandomGeneration = { generation(), generation(), generation(), generation() };
 		return asteroidShapeRandomGeneration;
@@ -74,7 +98,11 @@ public class Asteroid extends Polygon implements RandomGeneration {
 			return asteroidShapeRandomGeneration;
 		}
 	};
-
+/**
+ * 
+ * This class keeps track of the amount of asteroids that have been eliminated
+ *
+ */
 	private class Counter {
 		int count;
 		int scoreKeeper;
