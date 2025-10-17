@@ -11,9 +11,11 @@ public class Ship extends Polygon implements KeyListener {
 	private boolean forward = false;
 	private boolean right = false;
 	private boolean left = false;
+	
 	private double xVel = 0.0;
 	private double yVel = 0.0;
-	private static double maxSpd = 25.0;
+	
+	private static double maxSpd = 25.0; //default 25
 	private static double accel = 1;
 	private static double decel = 0.2;
 	private static int rotSpd = 5;
@@ -21,7 +23,7 @@ public class Ship extends Polygon implements KeyListener {
 			new Point(-12.5, -15) };
 	private ArrayList<Laser> lasers = new ArrayList<>();
 
-	public Ship(int x, int y, String color) {
+	public Ship(int x, int y) {
 		super(shipShape, new Point(x, y), 0);
 	}
 
@@ -148,6 +150,7 @@ public class Ship extends Polygon implements KeyListener {
 		return ret;
 	}
 	
+	//damages current ship, returns health remaining
 	public int damage(int dmg) {
 		health -= dmg;
 		return health;

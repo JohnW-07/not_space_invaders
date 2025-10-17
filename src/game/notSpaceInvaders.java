@@ -12,7 +12,7 @@ import java.awt.event.*;
 
 public class notSpaceInvaders extends Game {
 	private static int counter = 0;
-	private static Ship p1 = new Ship(500,500,"Blue");
+	private static Ship p1 = new Ship(500,500);
 	private static Stars[] starList = new Stars[150];
 	private static boolean starsDrawn = true;
 	//Polygon.fillPolygon(p1);
