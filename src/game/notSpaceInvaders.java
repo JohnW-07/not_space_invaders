@@ -10,11 +10,11 @@ NOTE: This class is the metaphorical "main method" of your program,
 import java.awt.*;
 import java.awt.event.*;
 
-class notSpaceInvaders extends Game {
-	static int counter = 0;
-	static Ship p1 = new Ship(500,500,"Blue");
-	static Stars[] starList = new Stars[150];
-	static boolean starsDrawn = true;
+public class notSpaceInvaders extends Game {
+	private static int counter = 0;
+	private static Ship p1 = new Ship(500,500,"Blue");
+	private static Stars[] starList = new Stars[150];
+	private static boolean starsDrawn = true;
 	//Polygon.fillPolygon(p1);
 	//.fillPolygon(p1);
 

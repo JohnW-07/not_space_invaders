@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class Ship extends Polygon implements KeyListener {
 	private int health = 100;
-	private String color;
 
 	private boolean forward = false;
 	private boolean right = false;
@@ -24,7 +23,6 @@ public class Ship extends Polygon implements KeyListener {
 
 	public Ship(int x, int y, String color) {
 		super(shipShape, new Point(x, y), 0);
-		this.color = color;
 	}
 
 	public void paint(Graphics g) {
@@ -150,14 +148,16 @@ public class Ship extends Polygon implements KeyListener {
 		return ret;
 	}
 	
+	public int damage(int dmg) {
+		health -= dmg;
+		return health;
+	}
+	
 	private class Laser {
 		private int dmg = 0;
 		private Color color = Color.WHITE;
 		private int cooldown = 3;
 		private int x1, x2, y1, y2;
-
-		private static Point[] laserShape = { new Point(-1500, 4), new Point(1500, 4), new Point(1500, -4),
-				new Point(-1500, -4) };
 
 		public Laser(Ship ship) {
 			x1 = (int) (ship.position.getX() + 12.5);
